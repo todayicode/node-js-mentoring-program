@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { CartService } from '../services/cart.service';
-import { UserService } from '../services/user.service';
 import { validateUpdateCart } from '../validators/requestValidations'
 
 export class CartController {
@@ -19,18 +18,18 @@ export class CartController {
     updateCart = async (req: Request, res: Response) => {
         const userId = req.headers['x-user-id'];
         const cartUpdates = req.body;
-
+        
         const { error } = validateUpdateCart(cartUpdates);
         if (error) return res.status(400).send(error.details[0].message);
 
         try {
-            const result = await this.cartService.updateUserCart(userId, cartUpdates);
+                        const result = await this.cartService.updateUserCart(userId, cartUpdates);
             if (result.error) {
                 return res.status(result.statusCode).json({ data: null, error: result.error });
             }
             return res.status(200).json({ data: result.data, error: null });
         } catch (error) {
-            return res.status(500).json({ data: null, error: { message: "Internal Server error" } });
+                        return res.status(500).json({ data: null, error: { message: "Internal Server error" } });
         }
     }
 

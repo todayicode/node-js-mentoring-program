@@ -2,12 +2,15 @@ import express from 'express';
 import { CartController } from './controllers/cart.controller';
 import { ProductController } from './controllers/product.controller';
 import { authMiddleware } from './middlewares/auth.middleware';
+import bodyParser from 'body-parser';
+
 
 
 const cartController = new CartController();
 const productController = new ProductController();
 
 const app = express();
+app.use(bodyParser.json());
 
 app.get('/api/profile/cart', authMiddleware, cartController.getCart);
 app.put('/api/profile/cart', authMiddleware, cartController.updateCart);
