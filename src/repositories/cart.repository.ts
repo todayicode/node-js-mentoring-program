@@ -1,54 +1,24 @@
-import { v4 as uuidv4 } from 'uuid';
-import { CartEntity } from '../models/cart';
-
+import { CartEntity, Cart } from '../models/cart';
 export class CartRepository {
-  private carts: CartEntity[] = [ {
-    "id": "cart-eb5a26af-6e4c-4f31-a9b1-3450d42ac66c",
-    "userId": "6dc52b3c-de7e-431a-84b8-0ec56e0774d4",
-    "isDeleted": false,
-    "items": [
-      {
-        "product": {
-          "id": "891389f0-4312-42d6-a650-6fda0959c734",
-          "title": "Book",
-          "description": "Interesting book",
-          "price": 200
-        },
-        "count": 2
-      },
-    ]
-  },
-  {
-    "id": "cart-eb5a26af-6e4c-4f31-a9b1-3450d42ac66c",
-    "userId": "2eb5a26af-6e4c-4f31-a9b1-3450d42ac66c",
-    "isDeleted": false,
-    "items": [
-      {
-        "product": {
-          "id": "891389f0-4312-42d6-a650-6fda0959c734",
-          "title": "Book",
-          "description": "Interesting book",
-          "price": 200
-        },
-        "count": 2
-      },
-    ]
-  }];
 
-  findCartByUserId(userId): CartEntity {
-    return this.carts.find((cart) => cart.userId === userId);
+  async findCartByUserId(userId: string): Promise<CartEntity | null> {
+    return await Cart.findOne({ userId });
   }
 
-  createCart(cartData): CartEntity {
-    const newCart = { ...cartData, id: uuidv4() };
-    this.carts.push(newCart);
-    return newCart;
+  async createCart(cartData: CartEntity): Promise<CartEntity> {
+    const newCart = new Cart({...cartData});
+    return await newCart.save();
   }
 
-  emptyCart(userId) {
-    const userIndex = this.carts.findIndex((cart) => cart.userId === userId);
-    if (userIndex !== -1) {
-      this.carts[userIndex].items = [];
+  async updateCart(cartData: CartEntity): Promise<CartEntity> {
+    return await Cart.findOneAndUpdate({userId: cartData.userId}, cartData)
+  }
+
+  async emptyCart(userId: string): Promise<boolean> {
+    const cart = await Cart.findOne({ userId });
+    if (cart) {
+      cart.items = [];
+      await Cart.findOneAndUpdate({userId}, cart);
       return true;
     }
     return false;

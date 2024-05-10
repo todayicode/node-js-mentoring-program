@@ -3,7 +3,7 @@ import { ProductRepository } from '../repositories/product.repository';
 export class ProductService {
   private productRepository = new ProductRepository();
 
-  async getProducts(userId) {
+  async getProducts() {
     let products = this.productRepository.getProducts();
     return products;
   }

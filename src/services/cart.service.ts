@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { CartRepository } from '../repositories/cart.repository';
 import { ProductRepository } from '../repositories/product.repository';
 import { OrderRepository } from '../repositories/order.repository';
@@ -11,13 +12,13 @@ export class CartService {
     async getUserCart(userId) {
         let cart = await this.cartRepository.findCartByUserId(userId);
         if (!cart) {
-            cart = await this.cartRepository.createCart({ userId, items: [] });
+            cart = await this.cartRepository.createCart({ userId, items: [], isDeleted: false,  cartId: uuidv4(),});
         }
 
         let total = 0;
         for (const item of cart.items) {
             if (item && item.product) {
-                const product = await this.productRepository.getProduct(item.product.id);
+                const product = await this.productRepository.getProduct(item.product.productId);
                 if (product) {
                     total += product.price * item.count;
                 }
@@ -38,12 +39,14 @@ export class CartService {
             return { error: 'Products are not valid', statusCode: 400 };
         }
 
-        const existingProduct = cart.items.find((item) => item.product.id === productId);
+        const existingProduct = cart.items.find((item) => item.product.productId === productId);
         if (existingProduct) {
             existingProduct.count = count;
         } else {
             cart.items.push({ product, count })
         }
+
+        await this.cartRepository.updateCart(cart)
 
         return { data: { Cart: cart }, statusCode: 200 };
     }

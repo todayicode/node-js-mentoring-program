@@ -1,15 +1,15 @@
 import { v4 as uuidv4 } from 'uuid';
-import { OrderEntity } from '../models/order';
+import Order, { OrderEntity } from '../models/order';
 import { CartEntity } from '../models/cart';
 
 export class OrderRepository {
-  private orders: OrderEntity[] = [];
 
-  createOrderFromCart(userId: string, cart: CartEntity): OrderEntity {
-    const order: OrderEntity = {
-      id: uuidv4(),
+  async createOrderFromCart(userId: string, cart: CartEntity): Promise<OrderEntity> {
+    
+    const order = new Order({
+      orderId: uuidv4(),
       userId,
-      cartId: cart.id,
+      cartId: cart.cartId,
       items: cart.items,
       comments: "",
       status: "created",
@@ -23,8 +23,9 @@ export class OrderRepository {
         type: "home",
         address: { country: "USA", city: "New York", street: "street 1", pin: "10001" },
       }
-    };
-    this.orders.push(order);
-    return order;
+    });
+
+
+    return await order.save();
   }
 }
