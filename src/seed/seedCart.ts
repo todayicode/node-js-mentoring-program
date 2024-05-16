@@ -1,4 +1,4 @@
-import { Cart, CartEntity } from '../models/cart';
+import { Cart, CartEntity } from '../models/cart.js';
 
 const cartsData: CartEntity[] = [
   {

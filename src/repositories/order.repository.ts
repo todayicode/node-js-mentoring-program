@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
-import Order, { OrderEntity } from '../models/order';
-import { CartEntity } from '../models/cart';
+import Order, { OrderEntity } from '../models/order.js';
+import { CartEntity } from '../models/cart.js';
 
 export class OrderRepository {
 

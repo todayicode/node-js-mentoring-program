@@ -1,6 +1,6 @@
-import { seedCart } from "./seedCart";
-import { seedProduct } from "./seedProduct";
-import { seedUser } from "./seedUser";
+import { seedCart } from "./seedCart.js";
+import { seedProduct } from "./seedProduct.js";
+import { seedUser } from "./seedUser.js";
 
 export {
     seedCart,

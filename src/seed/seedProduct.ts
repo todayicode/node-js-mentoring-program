@@ -1,5 +1,4 @@
-import Product from '../models/product';
-import { ProductEntity } from '../models/product';
+import Product, { ProductEntity } from '../models/product.js';
 
 const productsData: ProductEntity[] = [
   {

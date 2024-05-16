@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
-import { CartRepository } from '../repositories/cart.repository';
-import { ProductRepository } from '../repositories/product.repository';
-import { OrderRepository } from '../repositories/order.repository';
+import { CartRepository } from '../repositories/cart.repository.js';
+import { ProductRepository } from '../repositories/product.repository.js';
+import { OrderRepository } from '../repositories/order.repository.js';
 
 
 export class CartService {

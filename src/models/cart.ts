@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import { ProductEntity, ProductSchema } from './product';
+import { ProductEntity, ProductSchema } from './product.js';
 
 export interface CartItemEntity {
   product: ProductEntity;

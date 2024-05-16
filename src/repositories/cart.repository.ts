@@ -1,4 +1,4 @@
-import { CartEntity, Cart } from '../models/cart';
+import { CartEntity, Cart } from '../models/cart.js';
 export class CartRepository {
 
   async findCartByUserId(userId: string): Promise<CartEntity | null> {

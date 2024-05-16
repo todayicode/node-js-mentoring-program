@@ -1,11 +1,11 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import mongoose from 'mongoose';
-import { CartController } from './controllers/cart.controller';
-import { ProductController } from './controllers/product.controller';
-import { UserController } from './controllers/user.controller';
-import { authMiddleware } from './middlewares/auth.middleware';
-import { seedUser, seedCart, seedProduct } from './seed';
+import { CartController } from './controllers/cart.controller.js';
+import { ProductController } from './controllers/product.controller.js';
+import { UserController } from './controllers/user.controller.js';
+import { authMiddleware } from './middlewares/auth.middleware.js';
+import { seedUser, seedCart, seedProduct } from './seed/index.js';
 
 
 const uri: string = 'mongodb://root:nodegmp@localhost:27017';

@@ -1,4 +1,4 @@
-import User, { UserEntity } from '../models/user';
+import User, { UserEntity } from '../models/user.js';
 
 const usersData: UserEntity[] = [
   {

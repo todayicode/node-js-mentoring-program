@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { CartService } from '../services/cart.service';
-import { validateUpdateCart } from '../validators/requestValidations';
+import { CartService } from '../services/cart.service.js';
+import { validateUpdateCart } from '../validators/requestValidations.js';
 
 export class CartController {
   private cartService = new CartService();

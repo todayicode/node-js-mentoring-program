@@ -1,5 +1,5 @@
-import { UserRepository } from '../repositories/user.repository';
-import User from '../models/user'; 
+import { UserRepository } from '../repositories/user.repository.js';
+import User from '../models/user.js'; 
 
 export class UserService {
   private userRepository = new UserRepository();

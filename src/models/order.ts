@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import { CartItemSchema, CartItemEntity } from '../models/cart';
+import { CartItemSchema, CartItemEntity } from '../models/cart.js';
 
 interface CreditCard {
   cardNumber: string;

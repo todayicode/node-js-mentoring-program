@@ -1,4 +1,4 @@
-import Product, { ProductEntity } from '../models/product';
+import Product, { ProductEntity } from '../models/product.js';
 
 export class ProductRepository {
 

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { ProductService } from '../services/product.service';
+import { ProductService } from '../services/product.service.js';
 
 export class ProductController {
   private productService = new ProductService();
