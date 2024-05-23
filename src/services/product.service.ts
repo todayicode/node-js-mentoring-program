@@ -1,9 +1,9 @@
-import { ProductRepository } from '../repositories/product.repository';
+import { ProductRepository } from '../repositories/product.repository.js';
 
 export class ProductService {
   private productRepository = new ProductRepository();
 
-  async getProducts(userId) {
+  async getProducts() {
     let products = this.productRepository.getProducts();
     return products;
   }

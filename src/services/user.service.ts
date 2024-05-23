@@ -1,11 +1,11 @@
-import { UserRepository } from '../repositories/user.repository';
+import { UserRepository } from '../repositories/user.repository.js';
+import {User} from '../models/user.entity.js'; 
 
 export class UserService {
   private userRepository = new UserRepository();
 
   async getUserById(userId: string) {
-    const user = this.userRepository.findUserById(userId);
-    return user;
+    return await this.userRepository.findUserById(userId);
   }
 
   async createUser(user) {

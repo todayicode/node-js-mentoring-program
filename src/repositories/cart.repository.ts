@@ -1,54 +1,39 @@
-import { v4 as uuidv4 } from 'uuid';
-import { CartEntity } from '../models/cart';
-
+import { Cart } from '../models/cart.entity.js';
+import { User } from '../models/user.entity.js';
+import orm from '../server.js';
 export class CartRepository {
-  private carts: CartEntity[] = [ {
-    "id": "cart-eb5a26af-6e4c-4f31-a9b1-3450d42ac66c",
-    "userId": "6dc52b3c-de7e-431a-84b8-0ec56e0774d4",
-    "isDeleted": false,
-    "items": [
-      {
-        "product": {
-          "id": "891389f0-4312-42d6-a650-6fda0959c734",
-          "title": "Book",
-          "description": "Interesting book",
-          "price": 200
-        },
-        "count": 2
-      },
-    ]
-  },
-  {
-    "id": "cart-eb5a26af-6e4c-4f31-a9b1-3450d42ac66c",
-    "userId": "2eb5a26af-6e4c-4f31-a9b1-3450d42ac66c",
-    "isDeleted": false,
-    "items": [
-      {
-        "product": {
-          "id": "891389f0-4312-42d6-a650-6fda0959c734",
-          "title": "Book",
-          "description": "Interesting book",
-          "price": 200
-        },
-        "count": 2
-      },
-    ]
-  }];
-
-  findCartByUserId(userId): CartEntity {
-    return this.carts.find((cart) => cart.userId === userId);
+  async findCartByUserId(userId: string): Promise<Cart | null> {
+    const em = orm.em.fork();
+    return await em.findOne(Cart, { user: userId });
   }
 
-  createCart(cartData): CartEntity {
-    const newCart = { ...cartData, id: uuidv4() };
-    this.carts.push(newCart);
+  async createCart(cartData: any): Promise<Cart> {
+    const em = orm.em.fork();
+    const user = await em.findOne(User, { id: cartData.user });
+    const newCart = new Cart();
+    newCart.user = user.id;
+    newCart.isDeleted = false;
+    newCart.items = [];
+    await em.persist(newCart).flush();
     return newCart;
   }
 
-  emptyCart(userId) {
-    const userIndex = this.carts.findIndex((cart) => cart.userId === userId);
-    if (userIndex !== -1) {
-      this.carts[userIndex].items = [];
+  async updateCart(cartData: any): Promise<Cart> {
+    const em = orm.em.fork();
+    const cart = await em.findOne(Cart, { id: cartData.id });
+    em.assign(cart, cartData);
+    await em.flush();
+
+    return cart;
+  }
+
+  async emptyCart(userId: string): Promise<boolean> {
+    const em = orm.em.fork();
+    const cart = await em.findOne(Cart, { user: userId });
+
+    if (cart) {
+      cart.items = [];
+      await em.flush();
       return true;
     }
     return false;

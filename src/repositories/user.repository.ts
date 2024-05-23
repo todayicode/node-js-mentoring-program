@@ -1,21 +1,15 @@
-import { UserEntity } from '../models/user';
+import orm from '../server.js';
+import { User } from '../models/user.entity.js';
 
 export class UserRepository {
-  private users: UserEntity[] = [
-    {
-      id: "eb5a26af-6e4c-4f31-a9b1-3450d42ac66c",
-    },
-    {
-      id: "2eb5a26af-6e4c-4f31-a9b1-3450d42ac66c",
-    }
-  ];
-
-  findUserById(userId: string): UserEntity {
-    return this.users.find(user => user.id === userId);
+  async findUserById(id: string): Promise<User | null> {
+    const em = orm.em.fork();
+    return em.findOne(User, { id });
   }
 
-  createUser(user) {
-    this.users.push(user);
+  async createUser(user: User): Promise<User> {
+    const em = orm.em.fork();
+    await em.persistAndFlush(user);
     return user;
   }
 }
