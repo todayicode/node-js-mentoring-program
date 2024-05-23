@@ -13,21 +13,26 @@ export class ProductController {
       }
       return res.status(200).json({ data: products, error: null });
     } catch (error) {
-      return res.status(500).json({ data: null, error: { message: "Internal Server error" } });
+      return res
+        .status(500)
+        .json({ data: null, error: { message: 'Internal Server error' } });
     }
-  }
+  };
 
   getProduct = async (req: Request, res: Response) => {
     const { productId } = req.params;
-
     try {
       const product = await this.productService.getProduct(productId);
       if (!product) {
-        return res.status(404).json({ data: null, error: "No product with such id" });
+        return res
+          .status(404)
+          .json({ data: null, error: 'No product with such id' });
       }
       return res.status(200).json({ data: product, error: null });
     } catch (error) {
-      return res.status(500).json({ data: null, error: { message: "Internal Server error" } });
+      return res
+        .status(500)
+        .json({ data: null, error: { message: 'Internal Server error' } });
     }
-  }
+  };
 }

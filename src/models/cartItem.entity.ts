@@ -3,7 +3,7 @@ import { ProductPos } from './product.entity.js';
 
 @Embeddable()
 export class CartItem {
-  @ManyToOne()
+  @ManyToOne({ eager: true })
   product: ProductPos;
 
   @Property()

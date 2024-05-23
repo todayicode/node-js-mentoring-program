@@ -21,9 +21,11 @@ export class CartController {
 
     const { error } = validateUpdateCart(cartUpdates);
     if (error) return res.status(400).send(error.details[0].message);
-
     try {
-      const result = await this.cartService.updateUserCart(userId, cartUpdates);
+      const result = await this.cartService.updateUserCart(
+        userId,
+        cartUpdates
+      );
       if (result.error) {
         return res
           .status(result.statusCode)

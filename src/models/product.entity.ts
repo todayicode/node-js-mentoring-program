@@ -10,5 +10,5 @@ export class ProductPos extends BaseEntity {
   description!: string;
 
   @Property()
-  price!: string;
+  price!: number;
 }

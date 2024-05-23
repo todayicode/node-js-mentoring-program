@@ -1,12 +1,15 @@
-import User, { UserEntity } from '../models/user.js';
+import orm from '../server.js';
+import { UserPos } from '../models/user.entity.js';
 
 export class UserRepository {
-  async findUserById(userId: string): Promise<UserEntity | null> {
-    return await User.findOne({ id: userId }).exec();
+  async findUserById(id: string): Promise<UserPos | null> {
+    const em = orm.em.fork();
+    return em.findOne(UserPos, { id });
   }
 
-  async createUser(user: UserEntity): Promise<UserEntity> {
-    const newUser = new User(user);
-    return newUser.save();
+  async createUser(user: UserPos): Promise<UserPos> {
+    const em = orm.em.fork();
+    await em.persistAndFlush(user);
+    return user;
   }
 }
