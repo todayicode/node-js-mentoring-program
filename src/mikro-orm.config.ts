@@ -1,6 +1,7 @@
 import { Options, SqliteDriver } from '@mikro-orm/sqlite';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 import { SeedManager } from '@mikro-orm/seeder';
+import { Migrator } from '@mikro-orm/migrations'
 
 const config: Options = {
   // for simplicity, we use the SQLite database, as it's available pretty much everywhere
@@ -14,7 +15,7 @@ const config: Options = {
   metadataProvider: TsMorphMetadataProvider,
   // enable debug mode to log SQL queries and discovery information
   debug: true,
-  extensions: [SeedManager],
+  extensions: [SeedManager, Migrator],
   seeder: {
     path: 'dist/seeders', // path to the folder with compiled seeders
     pathTs: '', // path to the folder with TS seeders
@@ -23,6 +24,9 @@ const config: Options = {
     emit: 'ts', // seeder generation mode
     fileName: (className: string) => className, // seeder file naming convention
   },
+  migrations: {
+    path: './migrations', // path to the folder with migrations
+  }
 };
 
 export default config;
