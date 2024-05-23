@@ -1,15 +1,15 @@
-import { ProductPos } from '../models/product.entity.js';
+import { Product } from '../models/product.entity.js';
 import orm from '../server.js';
 
 export class ProductRepository {
-  async getProducts(): Promise<ProductPos[]> {
+  async getProducts(): Promise<Product[]> {
     const em = orm.em.fork();
-    const result = await em.find(ProductPos, {});
+    const result = await em.find(Product, {});
     return result;
   }
 
-  async getProduct(id: string): Promise<ProductPos | null> {
+  async getProduct(id: string): Promise<Product | null> {
     const em = orm.em.fork();
-    return await em.findOne(ProductPos, { id });
+    return await em.findOne(Product, { id });
   }
 }

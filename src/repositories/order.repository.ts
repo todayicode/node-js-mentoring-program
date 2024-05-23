@@ -1,13 +1,13 @@
 import orm from '../server.js';
 import { EntityManager } from '@mikro-orm/core';
-import { CartPos } from '../models/cart.entity.js';
-import { OrderPos } from '../models/order.entity.js';
+import { Cart } from '../models/cart.entity.js';
+import { Order } from '../models/order.entity.js';
 
 export class OrderRepository {
-  async createOrderFromCart(user, cart: CartPos): Promise<OrderPos> {
+  async createOrderFromCart(user, cart: Cart): Promise<Order> {
     const em: EntityManager = orm.em.fork();
 
-    const order = new OrderPos();
+    const order = new Order();
     order.user = user;
     order.items = cart.items;
     order.comments = '';

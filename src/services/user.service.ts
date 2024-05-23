@@ -1,5 +1,5 @@
 import { UserRepository } from '../repositories/user.repository.js';
-import {UserPos} from '../models/user.entity.js'; 
+import {User} from '../models/user.entity.js'; 
 
 export class UserService {
   private userRepository = new UserRepository();

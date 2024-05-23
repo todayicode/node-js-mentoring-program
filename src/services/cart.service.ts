@@ -3,7 +3,7 @@ import { CartRepository } from '../repositories/cart.repository.js';
 import { ProductRepository } from '../repositories/product.repository.js';
 import { OrderRepository } from '../repositories/order.repository.js';
 import orm from '../server.js';
-import { CartPos } from '../models/cart.entity.js';
+import { Cart } from '../models/cart.entity.js';
 
 export class CartService {
   private cartRepository = new CartRepository();

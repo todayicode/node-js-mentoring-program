@@ -7,7 +7,7 @@ import {
 } from '@mikro-orm/core';
 import { CartItem } from './cartItem.entity.js';
 import { BaseEntity } from './base.entity.js';
-import { UserPos } from './user.entity.js';
+import { User } from './user.entity.js';
 
 @Embeddable()
 class CreditCard {
@@ -55,9 +55,9 @@ class Delivery {
 }
 
 @Entity()
-export class OrderPos extends BaseEntity {
+export class Order extends BaseEntity {
   @ManyToOne()
-  user: UserPos;
+  user: User;
 
   @Embedded(() => CartItem, { array: true })
   items: CartItem[] = [];

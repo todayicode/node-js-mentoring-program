@@ -1,16 +1,16 @@
-import { CartPos } from '../models/cart.entity.js';
-import { UserPos } from '../models/user.entity.js';
+import { Cart } from '../models/cart.entity.js';
+import { User } from '../models/user.entity.js';
 import orm from '../server.js';
 export class CartRepository {
-  async findCartByUserId(userId: string): Promise<CartPos | null> {
+  async findCartByUserId(userId: string): Promise<Cart | null> {
     const em = orm.em.fork();
-    return await em.findOne(CartPos, { user: userId });
+    return await em.findOne(Cart, { user: userId });
   }
 
-  async createCart(cartData: any): Promise<CartPos> {
+  async createCart(cartData: any): Promise<Cart> {
     const em = orm.em.fork();
-    const user = await em.findOne(UserPos, { id: cartData.user });
-    const newCart = new CartPos();
+    const user = await em.findOne(User, { id: cartData.user });
+    const newCart = new Cart();
     newCart.user = user.id;
     newCart.isDeleted = false;
     newCart.items = [];
@@ -18,9 +18,9 @@ export class CartRepository {
     return newCart;
   }
 
-  async updateCart(cartData: any): Promise<CartPos> {
+  async updateCart(cartData: any): Promise<Cart> {
     const em = orm.em.fork();
-    const cart = await em.findOne(CartPos, { id: cartData.id });
+    const cart = await em.findOne(Cart, { id: cartData.id });
     em.assign(cart, cartData);
     await em.flush();
 
@@ -29,7 +29,7 @@ export class CartRepository {
 
   async emptyCart(userId: string): Promise<boolean> {
     const em = orm.em.fork();
-    const cart = await em.findOne(CartPos, { user: userId });
+    const cart = await em.findOne(Cart, { user: userId });
 
     if (cart) {
       cart.items = [];

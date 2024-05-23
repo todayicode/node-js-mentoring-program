@@ -2,7 +2,7 @@ import { Entity, Property } from '@mikro-orm/core';
 import { BaseEntity } from './base.entity.js';
 
 @Entity()
-export class ProductPos extends BaseEntity {
+export class Product extends BaseEntity {
   @Property({ length: 100 })
   title!: string;
 
