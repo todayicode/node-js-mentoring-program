@@ -26,7 +26,7 @@ export class OrderRepository {
     order.payment = {
       type: 'cash',
       address: 'USA, street 1',
-      creditCard: { cardNumber: '4111111111111111', expiry: '12/25' },
+      creditCard: { number: '4111111111111111', expiry: '12/25' },
     };
     order.delivery = {
       type: 'home',

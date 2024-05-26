@@ -12,7 +12,7 @@ import { User } from './user.entity.js';
 @Embeddable()
 class CreditCard {
   @Property()
-  cardNumber: string;
+  number: string;
 
   @Property()
   expiry: string;
