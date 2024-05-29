@@ -8,8 +8,21 @@ export class UserService {
     return await this.userRepository.findUserById(userId);
   }
 
-  async createUser(user) {
-    const newUser = this.userRepository.createUser(user);
+  async getUserByEmail(email: string) {
+    return await this.userRepository.findUserByEmail(email);
+  }
+
+  async register(email, password, role) {
+    const existingUser = await this.userRepository.findUserByEmail(email);
+    if (existingUser) {
+      throw new Error('Email already in use');
+    }
+    const newUser = this.userRepository.register(email, password, role);
+    return newUser;
+  }
+
+  async login(email, password, role) {
+    const newUser = this.userRepository.register(email, password, role);
     return newUser;
   }
 }

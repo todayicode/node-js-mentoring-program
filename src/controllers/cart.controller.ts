@@ -1,12 +1,13 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { CartService } from '../services/cart.service.js';
 import { validateUpdateCart } from '../validators/requestValidations.js';
+import { Request } from '../interfaces/Request.interface.js';
 
 export class CartController {
   private cartService = new CartService();
 
   getCart = async (req: Request, res: Response) => {
-    const userId = String(req.headers['x-user-id']);
+    const userId = req.user.id;
     try {
       const result = await this.cartService.getUserCart(userId);
       return res.status(200).json({ data: result, error: null });
@@ -16,7 +17,7 @@ export class CartController {
   };
 
   updateCart = async (req: Request, res: Response) => {
-    const userId = req.headers['x-user-id'];
+    const userId = req.user.id;
     const cartUpdates = req.body;
 
     const { error } = validateUpdateCart(cartUpdates);
@@ -40,7 +41,8 @@ export class CartController {
   };
 
   emptyCart = async (req: Request, res: Response) => {
-    const userId = req.headers['x-user-id'];
+    const userId = req.user.id;
+    console.log('userId', userId)
     try {
       const success = await this.cartService.emptyUserCart(userId);
       if (success) {
@@ -58,7 +60,7 @@ export class CartController {
   };
 
   createOrder = async (req: Request, res: Response) => {
-    const userId = req.headers['x-user-id'];
+    const userId = req.user.id;
     try {
       const result = await this.cartService.createOrderFromCart(userId);
       if (result.error) {

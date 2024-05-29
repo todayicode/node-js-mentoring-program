@@ -5,7 +5,6 @@ export class ProductController {
   private productService = new ProductService();
 
   getProducts = async (req: Request, res: Response) => {
-    const userId = req.headers['x-user-id'];
     try {
       const products = await this.productService.getProducts();
       if (products.length === 0) {
