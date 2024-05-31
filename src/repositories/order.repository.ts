@@ -1,4 +1,4 @@
-import orm from '../server.js';
+import orm from '../database.js';
 import { EntityManager } from '@mikro-orm/core';
 import { Cart } from '../models/cart.entity.js';
 import { Order } from '../models/order.entity.js';

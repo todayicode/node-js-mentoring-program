@@ -2,20 +2,23 @@ import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 import { SeedManager } from '@mikro-orm/seeder';
 import { Migrator } from '@mikro-orm/migrations'
 import { Options, PostgreSqlDriver } from '@mikro-orm/postgresql';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const config: Options = {
-  dbName: 'node_gmp',
+  dbName: process.env.DB_NAME,
   driver: PostgreSqlDriver,
   // folder-based discovery setup, using common filename suffix
   entities: ['dist/**/*.entity.js'],
   entitiesTs: ['src/**/*.entity.ts'],
-  user: 'node_gmp', // your PostgreSQL username
-  password: 'password123', // your Postg
+  user: process.env.DB_USER, // your PostgreSQL username
+  password: process.env.DB_PASSWORD, // your Postg
   // we will use the ts-morph reflection, an alternative to the default reflect-metadata provider
   // check the documentation for their differences: https://mikro-orm.io/docs/metadata-providers
   metadataProvider: TsMorphMetadataProvider,
   // enable debug mode to log SQL queries and discovery information
-  debug: true,
+  debug: process.env.DEBUG  === 'true',
   extensions: [SeedManager, Migrator],
   seeder: {
     path: 'dist/seeders', // path to the folder with compiled seeders
