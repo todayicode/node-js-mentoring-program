@@ -1,5 +1,5 @@
 import { Product } from '../models/product.entity.js';
-import orm from '../server.js';
+import orm from '../database.js';
 
 export class ProductRepository {
   async getProducts(): Promise<Product[]> {

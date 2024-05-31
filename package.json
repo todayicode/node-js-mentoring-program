@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node --no-warnings=ExperimentalWarning --loader ts-node/esm src/server.ts",
+    "start": "NODE_ENV=production node --no-warnings=ExperimentalWarning --loader ts-node/esm src/server.ts",
+    "start:dev": "NODE_ENV=development node --no-warnings=ExperimentalWarning --loader ts-node/esm src/server.ts",
+    "start:test": "NODE_ENV=test node --no-warnings=ExperimentalWarning --loader ts-node/esm src/server.ts",
     "db:seeder:run": "NODE_OPTIONS='--loader ts-paths-esm-loader/transpile-only --no-warnings' TS_NODE_PREFER_TS_EXTS=true npx mikro-orm seeder:run",
     "db:migration:create": "NODE_OPTIONS='--loader ts-paths-esm-loader/transpile-only --no-warnings' TS_NODE_PREFER_TS_EXTS=true mikro-orm migration:create",
     "db:migration:create:blank": "NODE_OPTIONS='--loader ts-paths-esm-loader/transpile-only --no-warnings' TS_NODE_PREFER_TS_EXTS=true mikro-orm migration:create --blank",
@@ -47,8 +49,10 @@
     "fastify": "^4.27.0",
     "joi": "^17.12.3",
     "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
     "ts-paths-esm-loader": "^1.4.3",
     "uuid": "^9.0.1",
-    "vitest": "^1.6.0"
+    "vitest": "^1.6.0",
+    "winston": "^3.13.0"
   }
 }

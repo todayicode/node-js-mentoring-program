@@ -1,6 +1,6 @@
 import { Cart } from '../models/cart.entity.js';
 import { User } from '../models/user.entity.js';
-import orm from '../server.js';
+import orm from '../database.js';
 export class CartRepository {
   async findCartByUserId(userId: string): Promise<Cart | null> {
     const em = orm.em.fork();

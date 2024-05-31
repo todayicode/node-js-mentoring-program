@@ -1,4 +1,4 @@
-import orm from '../server.js';
+import orm from '../database.js';
 import { User, UserRole } from '../models/user.entity.js';
 import { v4 as uuidv4 } from 'uuid';
 

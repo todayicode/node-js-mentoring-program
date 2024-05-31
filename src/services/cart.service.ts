@@ -1,8 +1,7 @@
-import { v4 as uuidv4 } from 'uuid';
 import { CartRepository } from '../repositories/cart.repository.js';
 import { ProductRepository } from '../repositories/product.repository.js';
 import { OrderRepository } from '../repositories/order.repository.js';
-import orm from '../server.js';
+import orm from '../database.js';
 import { Cart } from '../models/cart.entity.js';
 
 export class CartService {
